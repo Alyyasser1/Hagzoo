@@ -1,7 +1,6 @@
 # Yalla Hagz — Development Timeline
 
 ## Phase 1: Planning ✅
-
 - Defined functional and non-functional requirements
 - Chose tech stack: Next.js + TypeScript + Supabase
 - Designed system architecture (client/server/db layers)
@@ -13,7 +12,6 @@
 - Finalized file structure
 
 ## Phase 2: Setup & DB Connection ✅
-
 - Next.js project initialized
 - Supabase project created
 - DB connection established (client.ts + server.ts)
@@ -22,23 +20,31 @@
 - Auth trigger created to sync Supabase Auth with public users table
 
 ## Phase 3: Database ✅
-
 - Created tables: users, rooms, room_players, rewards, redemptions
 - Enabled RLS on all tables
 - Wrote RLS policies for all tables
 - Enabled Realtime on rooms and room_players tables
-- Created Postgres function for atomic room creation
+- Created Postgres functions for atomic operations:
+  - create_room_with_player
+  - join_room
+  - leave_room
+  - delete_room
+  - complete_room
 
 ## Phase 4: Backend ✅
-
 - Defined TypeScript types: User, Room, RoomPlayer, RoomsWithPlayers,
   RoomWithOwner, CreateRoomInput, Rewards, Redemption, RoomsResponse
 - userService: getUserById, updateUserInfo, updatePlayerStatus, getUserRooms
-- roomService: getRooms, getRoomById, createRoom
-- API routes: GET /api/rooms, POST /api/rooms, GET /api/rooms/[id]
+- roomService: getRooms, getRoomById, createRoom, joinRoom, leaveRoom,
+  deleteRoom, completeRoom
+- API Routes:
+  - GET, PATCH /api/user
+  - GET /api/user/rooms
+  - GET, POST /api/rooms
+  - GET, PATCH, DELETE /api/rooms/[id]
+  - POST, DELETE /api/room-players
+  - PATCH /api/room-players/[id]
+- API documentation written in docs/api/README.md
 
 ## Phase 5: In Progress 🔄
-
-- API routes for user services
-- Remaining room services: joinRoom, leaveRoom, deleteRoom, completeRoom
 - Pages and components

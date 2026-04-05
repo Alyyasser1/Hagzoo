@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { createRoom, getRooms } from "@/services/roomService";
+// Calls getRooms
 export async function GET(request: Request) {
   const supabase = await createClient();
   const {
@@ -15,6 +16,7 @@ export async function GET(request: Request) {
   if (error) return Response.json({ error }, { status: 500 });
   return Response.json({ data, hasMore }, { status: 200 });
 }
+// Calls createRoom
 export async function POST(request: Request) {
   const supabase = await createClient();
   const {

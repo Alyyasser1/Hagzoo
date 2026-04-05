@@ -18,6 +18,7 @@ export const getRooms = async (
   const hasMore = count ? offset + limit < count : false;
   return { data: (data as unknown as RoomWithOwner[]) ?? null, error, hasMore };
 };
+
 export const getRoomById = async (
   id: string,
 ): Promise<{ data: RoomsWithPlayers | null; error: PostgrestError | null }> => {
@@ -33,6 +34,7 @@ export const getRoomById = async (
     .single<RoomsWithPlayers>();
   return { data, error };
 };
+
 export const createRoom = async (
   roomData: CreateRoomInput,
   creator_id: string,
@@ -49,5 +51,46 @@ export const createRoom = async (
     room_coins_reward: roomData.coins_reward,
     creator_id,
   });
-  return { id, error };
+  return { id, error }
 };
+
+export const joinRoom = async (id:string):Promise<{data:string|null;error:PostgrestError|null}> => {
+  const supabase = await createClient();
+  const {data:{user}} =await supabase.auth.getUser()
+  if (!user) return { data: null, error: null }
+  const {data,error} = await supabase.rpc("join_room",{
+    p_room_id:id,
+    p_user_id:user.id
+  })
+  return {data,error}
+}
+export const leaveRoom = async (id:string):Promise<{data:string|null;error:PostgrestError|null}> => {
+  const supabase = await createClient();
+  const {data:{user}} =await supabase.auth.getUser()
+  if (!user) return { data: null, error: null }
+  const {data,error} = await supabase.rpc("leave_room",{
+    p_room_id:id,
+    p_user_id:user.id
+  })
+  return {data,error}
+}
+export const deleteRoom = async (id:string):Promise<{data:string|null;error:PostgrestError|null}> => {
+  const supabase = await createClient();
+  const {data:{user}} =await supabase.auth.getUser()
+  if (!user) return { data: null, error: null }
+  const {data,error} = await supabase.rpc("delete_room",{
+    p_room_id:id,
+    p_user_id:user.id
+  })
+  return {data,error}
+}
+export const completeRoom  = async (id:string):Promise<{data:string|null;error:PostgrestError|null}> => {
+  const supabase = await createClient();
+  const {data:{user}} =await supabase.auth.getUser()
+  if (!user) return { data: null, error: null }
+  const {data,error} = await supabase.rpc("complete_room",{
+    p_room_id:id,
+    p_user_id:user.id
+  })
+  return {data,error}
+}

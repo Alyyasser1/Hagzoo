@@ -9,6 +9,8 @@ export type User = {
   avatar_url: string | null;
   bio: string | null;
   created_at: string;
+  total_games_played: number;
+  total_coins_earned: number;
 };
 export type Room = {
   id: string;
@@ -20,6 +22,11 @@ export type Room = {
   status: "open" | "closed" | "full";
   created_by: string;
   created_at: string;
+  scheduled_date: string;
+  scheduled_time: string;
+  sport: "football" | "tennis" | "padel" | "padbol";
+  completed: boolean;
+  coins_reward: number;
 };
 export type RoomPlayer = {
   id: string;
@@ -27,15 +34,40 @@ export type RoomPlayer = {
   user_id: string;
   status: "pending" | "accepted" | "rejected";
   joined_at: string;
-};
-export type RoomsResponse = {
-  data: Room[];
-  total: number;
-  hasMore: boolean;
+  coins_earned: number;
 };
 export type RoomsWithPlayers = Room & {
   users: Pick<
     User,
     "id" | "username" | "phone" | "birth_date" | "avatar_url" | "level"
   >[];
+};
+export type RoomWithOwner = Room & {
+  users: Pick<User, "username" | "avatar_url">;
+};
+export type CreateRoomInput = Pick<
+  Room,
+  | "name"
+  | "location"
+  | "level"
+  | "max_players"
+  | "sport"
+  | "scheduled_date"
+  | "scheduled_time"
+  | "coins_reward"
+>;
+export type Rewards = {
+  id: string;
+  title: string;
+  description: string;
+  available: boolean;
+  coins_required: number;
+  created_at: string;
+};
+export type Redemption = {
+  id: string;
+  user_id: string;
+  reward_id: string;
+  redeemed_at: string;
+  created_at: string;
 };

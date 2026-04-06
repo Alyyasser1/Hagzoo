@@ -1,4 +1,4 @@
-# Yalla Hagz — Development Timeline
+# Hagzoo — Development Timeline
 
 ## Phase 1: Planning ✅
 - Defined functional and non-functional requirements

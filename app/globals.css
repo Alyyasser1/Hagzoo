@@ -1,32 +1,43 @@
 :root {
-  --bg-primary: #0f0f0f;
-  --bg-surface: #161616;
-  --bg-elevated: #1e1e1e;
-  --bg-subtle: #252525;
+  --bg-primary: #0a0a0a;
+  --bg-surface: #111111;
+  --bg-elevated: #151515;
+  --bg-subtle: #1a1a1a;
+  --bg-input: #0f0f0f;
 
-  --border-default: #2a2a2a;
-  --border-hover: #3a3a3a;
+  --accent: #E8651A;
+  --accent-hover: #D4570F;
+
+  --border-default: #222222;
+  --border-hover: #2a2a2a;
+  --border-subtle: #1a1a1a;
 
   --text-primary: #ffffff;
   --text-secondary: #e0e0e0;
-  --text-muted: #888888;
-  --text-faint: #555555;
+  --text-muted: #666666;
+  --text-faint: #333333;
 
-  --level-beginner-bg: #1a2e1a;
+  --level-beginner-bg: #0f1f0f;
   --level-beginner-text: #4a9e4a;
-  --level-beginner-border: #2a3e2a;
+  --level-beginner-border: #1a2e1a;
 
-  --level-intermediate-bg: #2e2a1a;
-  --level-intermediate-text: #9e8a4a;
-  --level-intermediate-border: #3e3a2a;
+  --level-intermediate-bg: #1f1a0a;
+  --level-intermediate-text: #c8883a;
+  --level-intermediate-border: #2e2510;
 
-  --level-advanced-bg: #2e1a1a;
-  --level-advanced-text: #9e4a4a;
-  --level-advanced-border: #3e2a2a;
+  --level-advanced-bg: #1f0f0f;
+  --level-advanced-text: #cc5555;
+  --level-advanced-border: #2e1515;
+
+  --status-open: #4a9e4a;
+  --status-full: #cc4444;
+  --status-closed: #555555;
 
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-full: 9999px;
+
+  --font-main: var(--font-sans);
 }

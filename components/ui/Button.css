@@ -1,0 +1,79 @@
+.btn {
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 11px 20px;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 0.5px solid var(--border-default);
+  padding: 11px 20px;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 0.5px solid var(--border-default);
+  padding: 11px 20px;
+}
+
+.btn-danger {
+  background: transparent;
+  color: #cc4444;
+  border: 0.5px solid #2e1515;
+  padding: 11px 20px;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 10px;
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: -0.5px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-ghost.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-md { padding: 9px 16px; }
+.btn-lg { padding: 12px 20px; font-size: 15px; }
+
+.btn[aria-busy="true"] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

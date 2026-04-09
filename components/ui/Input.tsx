@@ -1,4 +1,5 @@
 import React from "react";
+import "./Input.css";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   errorMessage?: string;
@@ -7,10 +8,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, errorMessage, id, ...props }, ref) => {
     return (
-      <div>
-        {label && <label htmlFor={id}>{label}</label>}
-        <input ref={ref} id={id} {...props} />
-        {errorMessage && <span>{errorMessage}</span>}
+      <div className="form-field">
+        {label && (
+          <label htmlFor={id} className="form-label">
+            {label}
+          </label>
+        )}
+        <input ref={ref} id={id} {...props} className="form-input" />
+        {errorMessage && <span className="input-error">{errorMessage}</span>}
       </div>
     );
   },

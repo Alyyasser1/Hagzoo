@@ -9,23 +9,22 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleLogin} className="flex flex-col gap-4">
       <Input
-        label="Username"
-        id="username"
-        placeholder="Enter your username"
+        type="email"
+        label="Email"
+        id="email"
+        placeholder="Enter your email"
         required
       ></Input>
       <Input
+        type="password"
         label="Password"
         id="password"
         placeholder="Enter your password"
         required
       ></Input>
-      <Button
-        type="submit"
-        variant="primary"
-        size="full"
-        className="mt-2"
-      ></Button>
+      <Button type="submit" variant="primary" size="full">
+        Login
+      </Button>
     </form>
   );
 };

@@ -1,14 +1,13 @@
 import React from "react";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
-
 const SignupForm = () => {
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     // Implementation for Phase 5 auth logic goes here
   };
   return (
-    <form onSubmit={handleSignup} className="flex-col gap-4">
+    <form onSubmit={handleSignup} className="flex flex-col gap-4">
       <Input
         type="text"
         label="Username"
@@ -28,16 +27,16 @@ const SignupForm = () => {
         placeholder="+20 1XX XXX XXXX"
       ></Input>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="form-grid">
         <Input
           label="Birth date"
           type="date"
           id="birthdate"
           placeholder="DD/MM/YYYY"
         />
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-gray-400">Level</label>
-          <select className="bg-[#1a1a1a] border border-[#282828] rounded-lg p-2 text-white">
+        <div className="form-field">
+          <label className="form-label">Level</label>
+          <select className="form-input">
             <option>Beginner</option>
             <option>Intermediate</option>
             <option>Advanced</option>
@@ -53,11 +52,11 @@ const SignupForm = () => {
       <Input
         type="password"
         label="Confirm password"
-        id="password"
+        id="confirm-password"
         placeholder="Re-enter your password"
       ></Input>
       <Button type="submit" variant="primary" size="full">
-        Create acconut
+        Create account
       </Button>
     </form>
   );

@@ -4,19 +4,23 @@ export async function POST(request: Request) {
   try {
     const supabase = await createClient();
     const body = await request.json();
-    const { email, password, } = body;
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { username,email,tel,birthDate,level, password } = body;
+    const { error } = await supabase.auth.signUp({email,password,options:{
+        data:{
+            username,
+            phone:tel,
+            birth_date:birthDate,
+            level,
+        }
+    }});
     if (error) {
-      console.error("Login error:", error.message);
+      console.error("signup error:", error.message);
       return NextResponse.json(
-        { error: "Invalid email or password" }, 
-        { status: 401 }
+        { error: error.message }, 
+        { status: 400 }
       );
     }
-    return NextResponse.json({ message: "Login successful" }, { status: 200 });
+    return NextResponse.json({ message: "signup successful" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" }, 

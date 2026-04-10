@@ -1,6 +1,7 @@
 # Hagzoo — Development Timeline
 
 ## Phase 1: Planning ✅
+
 - Defined functional and non-functional requirements
 - Chose tech stack: Next.js + TypeScript + Supabase
 - Designed system architecture (client/server/db layers)
@@ -12,6 +13,7 @@
 - Finalized file structure
 
 ## Phase 2: Setup & DB Connection ✅
+
 - Next.js project initialized
 - Supabase project created
 - DB connection established (client.ts + server.ts)
@@ -20,6 +22,7 @@
 - Auth trigger created to sync Supabase Auth with public users table
 
 ## Phase 3: Database ✅
+
 - Created tables: users, rooms, room_players, rewards, redemptions
 - Enabled RLS on all tables
 - Wrote RLS policies for all tables
@@ -32,12 +35,15 @@
   - complete_room
 
 ## Phase 4: Backend ✅
+
 - Defined TypeScript types: User, Room, RoomPlayer, RoomsWithPlayers,
   RoomWithOwner, CreateRoomInput, Rewards, Redemption, RoomsResponse
 - userService: getUserById, updateUserInfo, updatePlayerStatus, getUserRooms
 - roomService: getRooms, getRoomById, createRoom, joinRoom, leaveRoom,
   deleteRoom, completeRoom
 - API Routes:
+  - POST /api/auth/login
+  - POST /api/auth/signup
   - GET, PATCH /api/user
   - GET /api/user/rooms
   - GET, POST /api/rooms
@@ -46,5 +52,18 @@
   - PATCH /api/room-players/[id]
 - API documentation written in docs/api/README.md
 
-## Phase 5: In Progress 🔄
-- Pages and components
+## Phase 5: Frontend ✅
+
+- CSS variables defined for dark theme and Hagzoo brand identity
+- UI components: Button, Input
+- Auth components: AuthCard, AuthContainer, LoginForm, SignupForm
+- Form validation with Zod + react-hook-form
+- Landing page with session check and redirect
+
+## Phase 6: In Progress 🔄
+
+- Navbar component
+- Footer component
+- Home layout (shared between home and profile)
+- Home page with offset-paginated rooms grid
+- Profile page

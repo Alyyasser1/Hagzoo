@@ -1,11 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
+import { NextRequest } from "next/server";
 import { completeRoom, deleteRoom, getRoomById } from "@/services/roomService";
 // Calls getRoomById
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } },
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await params;
   const supabase = await createClient();
   const {
     data: { user },
@@ -31,9 +32,9 @@ export async function DELETE(request: Request) {
       return Response.json({ data }, { status: 200 });
 }
 // Calls completeRoom
-export async function PATCH(request: Request,{ params }: { params: {id: string } },) {
+export async function PATCH(request: NextRequest,{ params }: { params: Promise<{id: string }> },) {
     const supabase = await createClient();
-    const{id} = params
+    const{id} = await params
       const {
         data: { user },
       } = await supabase.auth.getUser();

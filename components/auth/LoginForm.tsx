@@ -1,28 +1,75 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import z from "zod";
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+type LoginFormValues = z.infer<typeof loginSchema>;
 const LoginForm = () => {
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Implementation for Phase 5 auth logic goes here
+  const router = useRouter();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+  const onSubmit = async (values: LoginFormValues) => {
+    setServerError(null);
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || "Login failed");
+      }
+      router.push("/home");
+      router.refresh();
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setServerError(err.message);
+      } else {
+        setServerError("An unexpected error occurred");
+      }
+    }
   };
   return (
-    <form onSubmit={handleLogin} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="form-field">
+      {serverError && <div className="input-error">{serverError}</div>}
       <Input
         type="email"
         label="Email"
         id="email"
-        placeholder="Enter your email"
-        required
-      ></Input>
+        placeholder="example@gmail.com"
+        error={errors.email?.message}
+        {...register("email")}
+      />
+
       <Input
         type="password"
         label="Password"
         id="password"
-        placeholder="Enter your password"
-        required
-      ></Input>
-      <Button type="submit" variant="primary" size="full">
+        placeholder="••••••••"
+        error={errors.password?.message}
+        {...register("password")}
+      />
+
+      <Button
+        type="submit"
+        variant="primary"
+        size="full"
+        isLoading={isSubmitting}
+      >
         Login
       </Button>
     </form>

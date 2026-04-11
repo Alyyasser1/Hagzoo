@@ -44,6 +44,11 @@
   color: #cc4444;
   border: 0.5px solid #2e1515;
   padding: 11px 20px;
+  width: 100%;
+}
+
+.btn-danger:hover {
+  background: #1a0a0a;
 }
 
 .btn-ghost {

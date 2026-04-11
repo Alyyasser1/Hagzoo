@@ -1,0 +1,9 @@
+.footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--bg-elevated);
+    padding: 20px 24px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 50px;
+}

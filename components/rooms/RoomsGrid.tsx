@@ -1,0 +1,116 @@
+"use client";
+import { RoomWithOwner } from "@/types/data";
+import { useEffect, useRef, useState } from "react";
+import Button from "../ui/Button";
+import Input from "../ui/Input";
+import "../ui/Button.css";
+import "../ui/Input.css";
+
+interface RoomGridProps {
+  initialRooms: RoomWithOwner[];
+  initialHasMore: boolean;
+}
+const sportsList = ["All", "Football", "Padel", "Tennis", "Padbol"];
+const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
+  // States nedded
+  const [rooms, setRooms] = useState<RoomWithOwner[]>(initialRooms);
+  const [hasMore, setHasMore] = useState(initialHasMore);
+  const [selectedSports, setSelectedSports] = useState<string[]>(["All"]);
+  const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isFirstRender = useRef(true);
+  const fetchRooms = async (isNewFilter: boolean) => {
+    setIsLoading(true);
+    const offset = isNewFilter ? 0 : rooms.length;
+    const sportParam = selectedSports.join(",");
+
+    try {
+      const response = await fetch(
+        `/api/rooms?offset=${offset}&limit=10&sport=${sportParam}&name=${search}`,
+      );
+      const result = await response.json();
+
+      if (isNewFilter) {
+        setRooms(result.data || []);
+      } else {
+        setRooms((prev) => [...prev, ...(result.data || [])]);
+      }
+    } catch (error) {
+      console.log("fetch failed", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    const delayDebounceFn = setTimeout(() => {
+      fetchRooms(true); // Fetch fresh results starting from offset 0
+    }, 400);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search, selectedSports]);
+
+  const toggleSport = (sport: string) => {
+    setSelectedSports((prev) => {
+      // If "All" is clicked, reset everything
+      if (sport === "All") return ["All"];
+
+      // Remove "All" and toggle the clicked sport
+      const withoutAll = prev.filter((s) => s !== "All");
+      const isAlreadySelected = withoutAll.includes(sport);
+
+      const next = isAlreadySelected
+        ? withoutAll.filter((s) => s !== sport) // Remove if there
+        : [...withoutAll, sport]; // Add if not there
+
+      // If everything is unchecked, go back to ["All"]
+      return next.length === 0 ? ["All"] : next;
+    });
+  };
+  return (
+    <div className="grid-page">
+      <div className="filter-section">
+        <div className="sport-filter">
+          {sportsList.map((sport) => (
+            <Button
+              key={sport}
+              variant={selectedSports.includes(sport) ? "primary" : "outline"}
+              size="md"
+              onClick={() => toggleSport(sport)}
+            ></Button>
+          ))}
+        </div>
+        <div className="search-filter">
+          <Input
+            id="search"
+            placeholder="Search rooms..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="grid">
+        {rooms.map((room) => (
+          <RoomCard key={room.id} room={room} />
+        ))}
+      </div>
+      {hasMore && (
+        <Button
+          variant="outline"
+          size="full"
+          isLoading={isLoading}
+          onClick={() => fetchRooms(false)}
+        >
+          Load more rooms
+        </Button>
+      )}
+    </div>
+  );
+};
+
+export default RoomsGrid;

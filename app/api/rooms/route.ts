@@ -10,9 +10,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const offset = Number(searchParams.get("offset"));
   const limit = Number(searchParams.get("limit"));
+  const sport: string[] = searchParams.get("sport")?.split(",") ?? []
+  const search = searchParams.get("name") ?? "";
   if (isNaN(offset) || isNaN(limit))
     return Response.json({ error: "Invalid params" }, { status: 400 });
-  const { data, error, hasMore } = await getRooms(offset, limit);
+  const { data, error, hasMore } = await getRooms(offset, limit,sport,search);
   if (error) return Response.json({ error }, { status: 500 });
   return Response.json({ data, hasMore }, { status: 200 });
 }

@@ -4,6 +4,8 @@ import { RoomsWithPlayers, RoomWithOwner, CreateRoomInput } from "@/types/data";
 export const getRooms = async (
   offset: number,
   limit: number,
+  sport:string[],
+  search?: string
 ): Promise<{
   data: RoomWithOwner[] | null;
   error: PostgrestError | null;
@@ -11,10 +13,21 @@ export const getRooms = async (
 }> => {
   const supabase = await createClient();
   //    Gets rooms,(owner's name and avatar_url)
-  const { data, error, count } = await supabase
+  let query =  supabase
     .from("rooms")
     .select("*, users!created_by(username, avatar_url)", { count: "exact" })
+    .eq("completed", false)
+    .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
+    // Handle filter sport query
+    if(sport && sport.length > 0 && !sport.includes("All")) {
+      query = query.in("sport",sport)
+    }
+    // Handle search name query
+    if (search && search.trim() !== "") {
+    query = query.ilike("name", `%${search}%`);
+  }
+    const {data,error,count}=await query
   const hasMore = count ? offset + limit < count : false;
   return { data: (data as unknown as RoomWithOwner[]) ?? null, error, hasMore };
 };

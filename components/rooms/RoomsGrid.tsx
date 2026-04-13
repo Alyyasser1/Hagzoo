@@ -1,6 +1,6 @@
 "use client";
 import { RoomWithOwner } from "@/types/data";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import "../ui/Button.css";
@@ -21,41 +21,49 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const isFirstRender = useRef(true);
-  const fetchRooms = async (isNewFilter: boolean) => {
-    setIsLoading(true);
-    const offset = isNewFilter ? 0 : rooms.length;
-    const sportParam = selectedSports.join(",");
 
-    try {
-      const response = await fetch(
-        `/api/rooms?offset=${offset}&limit=10&sport=${sportParam}&name=${search}`,
-      );
-      const result = await response.json();
+  // 2. Wrap fetchRooms in useCallback
+  const fetchRooms = useCallback(
+    async (isNewFilter: boolean, manualOffset?: number) => {
+      setIsLoading(true);
 
-      if (isNewFilter) {
-        setRooms(result.data || []);
-      } else {
-        setRooms((prev) => [...prev, ...(result.data || [])]);
+      // Use the manualOffset if provided (for Load More), otherwise use 0 (for new filters)
+      const offset = isNewFilter ? 0 : (manualOffset ?? rooms.length);
+      const sportParam = selectedSports.join(",");
+
+      try {
+        const response = await fetch(
+          `/api/rooms?offset=${offset}&limit=10&sport=${sportParam}&name=${search}`,
+        );
+        const result = await response.json();
+
+        if (isNewFilter) {
+          setRooms(result.data || []);
+        } else {
+          setRooms((prev) => [...prev, ...(result.data || [])]);
+        }
+        setHasMore(result.hasMore);
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      } finally {
+        setIsLoading(false);
       }
-      setHasMore(result.hasMore);
-    } catch (error) {
-      console.log("fetch failed", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    [selectedSports, search, rooms.length],
+  );
 
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
+
     const delayDebounceFn = setTimeout(() => {
-      fetchRooms(true); // Fetch fresh results starting from offset 0
+      fetchRooms(true);
     }, 400);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [search, selectedSports]);
+  }, [search, selectedSports, fetchRooms]);
 
   const toggleSport = (sport: string) => {
     setSelectedSports((prev) => {

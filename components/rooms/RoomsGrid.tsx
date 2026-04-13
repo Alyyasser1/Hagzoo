@@ -5,7 +5,8 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import "../ui/Button.css";
 import "../ui/Input.css";
-
+import "./RoomsGrid.css";
+import RoomCard from "./RoomCard";
 interface RoomGridProps {
   initialRooms: RoomWithOwner[];
   initialHasMore: boolean;
@@ -36,6 +37,7 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
       } else {
         setRooms((prev) => [...prev, ...(result.data || [])]);
       }
+      setHasMore(result.hasMore);
     } catch (error) {
       console.log("fetch failed", error);
     } finally {
@@ -82,7 +84,9 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
               variant={selectedSports.includes(sport) ? "primary" : "outline"}
               size="md"
               onClick={() => toggleSport(sport)}
-            ></Button>
+            >
+              {sport}
+            </Button>
           ))}
         </div>
         <div className="search-filter">

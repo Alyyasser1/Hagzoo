@@ -1,21 +1,15 @@
 "use client";
 import "./Navbar.css";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { User } from "@/types/data";
 import Button from "../ui/Button";
+import { getInitials } from "@/utils/userUtils";
 interface NavbarProps {
   user: User;
 }
 const Navbar = ({ user }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const initials = user.username.includes(" ")
-    ? user.username
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase()
-    : user.username.slice(0, 2).toUpperCase();
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!(e.target as Element).closest(".avatar")) {
@@ -37,10 +31,28 @@ const Navbar = ({ user }: NavbarProps) => {
       </div>
       <div className="nav-right">
         <div className="avatar" onClick={() => setIsOpen(!isOpen)}>
-          {initials}
+          {user.avatar_url ? (
+            <Image
+              src={user.avatar_url}
+              alt={user.username}
+              className="avatar-img"
+            />
+          ) : (
+            <span>{getInitials(user.username)}</span>
+          )}
           <div className={`avatar-popup ${isOpen ? "active" : ""}`}>
             <div className="popup-header">
-              <div className="popup-avatar">{initials}</div>
+              <div className="popup-avatar">
+                {user.avatar_url ? (
+                  <Image
+                    src={user.avatar_url}
+                    alt={user.username}
+                    className="avatar-img"
+                  />
+                ) : (
+                  <span>{getInitials(user.username)}</span>
+                )}
+              </div>
               <div>
                 <div className="popup-name">{user.username}</div>
                 <div className="popup-level">{user.level}</div>

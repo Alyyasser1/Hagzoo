@@ -1,17 +1,21 @@
 import RoomsGrid from "@/components/rooms/RoomsGrid";
+import Button from "@/components/ui/Button";
 import { getRooms } from "@/services/roomService";
+import "./page.css";
 export default async function HomePage() {
   const { data, error, hasMore } = await getRooms(0, 10, ["All"]);
   const initialRooms = data ?? [];
   return (
-    <div className="main">
+    <div className="main-layout">
       <div className="header-section">
         <div className="title">Available rooms</div>
       </div>
-      <RoomsGrid
-        initialRooms={initialRooms}
-        initialHasMore={hasMore}
-      ></RoomsGrid>
+      <RoomsGrid initialRooms={initialRooms} initialHasMore={hasMore} />
+      <div className="floating-action">
+        <Button variant="primary" size="lg">
+          + Create room
+        </Button>
+      </div>
     </div>
   );
 }

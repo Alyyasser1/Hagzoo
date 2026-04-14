@@ -41,7 +41,12 @@ export type RoomsWithPlayers = Room & {
     User,
     "id" | "username" | "phone" | "birth_date" | "avatar_url" | "level"
   >[];
-};
+}& {
+  roomPlayer:Pick<
+    RoomPlayer,
+    "status"|"user_id"
+  >[];
+}
 export type RoomWithOwner = Room & {
   users: Pick<User, "username" | "avatar_url">;
 };

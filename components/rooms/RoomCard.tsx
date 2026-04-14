@@ -6,10 +6,11 @@ import { formatTime } from "@/utils/roomUtils";
 
 interface RoomCardProps {
   room: RoomWithOwner;
+  onClick: (room: RoomWithOwner) => void;
 }
-const RoomCard = ({ room }: RoomCardProps) => {
+const RoomCard = ({ room, onClick }: RoomCardProps) => {
   return (
-    <div className="room-card">
+    <div className="room-card" onClick={() => onClick(room)}>
       <div className="room-card-top">
         <div className="sport-tag">
           <div className="sport-icon">

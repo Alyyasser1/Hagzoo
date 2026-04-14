@@ -9,12 +9,18 @@ import "./RoomsGrid.css";
 import RoomCard from "./RoomCard";
 import CreateRoomForm from "./CreateRoomForm";
 import Modal from "./Modal";
+import RoomModal from "./RoomModal";
 interface RoomGridProps {
   initialRooms: RoomWithOwner[];
   initialHasMore: boolean;
+  currentUserId: string;
 }
 const sportsList = ["All", "Football", "Padel", "Tennis", "Padbol"];
-const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
+const RoomsGrid = ({
+  initialRooms,
+  initialHasMore,
+  currentUserId,
+}: RoomGridProps) => {
   // States nedded
   const [rooms, setRooms] = useState<RoomWithOwner[]>(initialRooms);
   const [hasMore, setHasMore] = useState(initialHasMore);
@@ -22,7 +28,7 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
-
+  const [selectedRoom, setSelectedRoom] = useState<RoomWithOwner | null>(null);
   const isFirstRender = useRef(true);
 
   // Wrap fetchRooms in useCallback
@@ -110,7 +116,11 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
       </div>
       <div className="grid">
         {rooms.map((room) => (
-          <RoomCard key={room.id} room={room} />
+          <RoomCard
+            key={room.id}
+            room={room}
+            onClick={(clickedRoom) => setSelectedRoom(clickedRoom)}
+          />
         ))}
       </div>
       {hasMore && (
@@ -145,6 +155,14 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
             }}
           ></CreateRoomForm>
         </Modal>
+      )}
+      {selectedRoom && (
+        <RoomModal
+          currentUserId={currentUserId}
+          room={selectedRoom}
+          isOpen={!!selectedRoom}
+          onClose={() => setSelectedRoom(null)}
+        />
       )}
     </div>
   );

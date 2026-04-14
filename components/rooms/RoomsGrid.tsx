@@ -7,6 +7,8 @@ import "../ui/Button.css";
 import "../ui/Input.css";
 import "./RoomsGrid.css";
 import RoomCard from "./RoomCard";
+import CreateRoomForm from "./CreateRoomForm";
+import Modal from "./Modal";
 interface RoomGridProps {
   initialRooms: RoomWithOwner[];
   initialHasMore: boolean;
@@ -19,16 +21,16 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
   const [selectedSports, setSelectedSports] = useState<string[]>(["All"]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false);
 
   const isFirstRender = useRef(true);
 
-  // 2. Wrap fetchRooms in useCallback
+  // Wrap fetchRooms in useCallback
   const fetchRooms = useCallback(
     async (isNewFilter: boolean, manualOffset?: number) => {
       setIsLoading(true);
 
-      // Use the manualOffset if provided (for Load More), otherwise use 0 (for new filters)
-      const offset = isNewFilter ? 0 : (manualOffset ?? rooms.length);
+      const offset = isNewFilter ? 0 : (manualOffset ?? 0);
       const sportParam = selectedSports.join(",");
 
       try {
@@ -49,7 +51,7 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
         setIsLoading(false);
       }
     },
-    [selectedSports, search, rooms.length],
+    [selectedSports, search],
   );
 
   useEffect(() => {
@@ -120,6 +122,29 @@ const RoomsGrid = ({ initialRooms, initialHasMore }: RoomGridProps) => {
         >
           Load more rooms
         </Button>
+      )}
+      <div className="floating-action">
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => setIsCreateRoomModalOpen(true)}
+        >
+          + Create room
+        </Button>
+      </div>
+      {isCreateRoomModalOpen && (
+        <Modal
+          title="Create Room"
+          isOpen={isCreateRoomModalOpen}
+          onClose={() => setIsCreateRoomModalOpen(false)}
+        >
+          <CreateRoomForm
+            onSuccess={() => {
+              setIsCreateRoomModalOpen(false);
+              fetchRooms(true);
+            }}
+          ></CreateRoomForm>
+        </Modal>
       )}
     </div>
   );

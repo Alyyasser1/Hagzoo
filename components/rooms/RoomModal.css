@@ -1,0 +1,126 @@
+.room-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.room-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.room-modal-info-row {
+  font-size: 14px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.room-modal-divider {
+  border: none;
+  border-top: 0.5px solid var(--border-default);
+}
+
+.room-modal-players-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.room-modal-loading {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 16px 0;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--border-subtle);
+}
+
+.player-row:last-child {
+  border-bottom: none;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  border: 0.5px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.player-name {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.player-level {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.player-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-status {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  text-transform: capitalize;
+}
+
+.player-status.accepted {
+  background: #0f1f0f;
+  color: #4a9e4a;
+  border: 0.5px solid #1a2e1a;
+}
+
+.player-status.pending {
+  background: #1f1a0a;
+  color: #c8883a;
+  border: 0.5px solid #2e2510;
+}
+
+.player-status.rejected {
+  background: #1f0f0f;
+  color: #cc5555;
+  border: 0.5px solid #2e1515;
+}
+
+.player-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.room-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}

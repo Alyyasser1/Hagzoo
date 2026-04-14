@@ -35,6 +35,8 @@ const Navbar = ({ user }: NavbarProps) => {
             <Image
               src={user.avatar_url}
               alt={user.username}
+              width={24}
+              height={24}
               className="avatar-img"
             />
           ) : (
@@ -47,6 +49,8 @@ const Navbar = ({ user }: NavbarProps) => {
                   <Image
                     src={user.avatar_url}
                     alt={user.username}
+                    width={24}
+                    height={24}
                     className="avatar-img"
                   />
                 ) : (

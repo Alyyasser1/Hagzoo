@@ -34,8 +34,8 @@ export async function POST(request: Request) {
     sport,
     scheduled_date,
     scheduled_time,
-    coins_reward,
   } = body;
+  const CONSTANT_REWARD = 50;
   if (
     !name ||
     !location ||
@@ -43,11 +43,10 @@ export async function POST(request: Request) {
     !max_players ||
     !sport ||
     !scheduled_date ||
-    !scheduled_time ||
-    !coins_reward
-  )
+    !scheduled_time )
     return Response.json({ error: "Data is not complete" }, { status: 400 });
-  const { id, error } = await createRoom(body, user.id);
+    const roomData = {...body,coins_reward:CONSTANT_REWARD}
+  const { id, error } = await createRoom(roomData, user.id);
   if (error) return Response.json({ error }, { status: 500 });
   return Response.json({ id }, { status: 200 });
 }

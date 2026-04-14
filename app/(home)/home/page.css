@@ -2,7 +2,7 @@
 .main-layout {
   position: relative;
   min-height: calc(100vh - 64px); /* Subtracting navbar height */
-  padding-bottom: 80px; /* Space for the floating button */
+  padding-bottom: 80px; 
 }
 
 .header-section {
@@ -19,11 +19,3 @@
   text-align: center;
 }
 
-/* Optional: If you add the Create Room button to page.tsx */
-.floating-action {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 50;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-}

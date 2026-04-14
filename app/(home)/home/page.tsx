@@ -1,5 +1,4 @@
 import RoomsGrid from "@/components/rooms/RoomsGrid";
-import Button from "@/components/ui/Button";
 import { getRooms } from "@/services/roomService";
 import "./page.css";
 export default async function HomePage() {
@@ -11,11 +10,6 @@ export default async function HomePage() {
         <div className="title">Available rooms</div>
       </div>
       <RoomsGrid initialRooms={initialRooms} initialHasMore={hasMore} />
-      <div className="floating-action">
-        <Button variant="primary" size="lg">
-          + Create room
-        </Button>
-      </div>
     </div>
   );
 }

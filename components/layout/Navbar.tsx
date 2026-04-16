@@ -2,14 +2,16 @@
 import "./Navbar.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { User } from "@/types/data";
 import Button from "../ui/Button";
-import { getInitials } from "@/utils/userUtils";
+import { getInitials, logout } from "@/utils/userUtils";
 interface NavbarProps {
   user: User;
 }
 const Navbar = ({ user }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!(e.target as Element).closest(".avatar")) {
@@ -74,7 +76,12 @@ const Navbar = ({ user }: NavbarProps) => {
                 <div className="popup-stat-label">Games</div>
               </div>
             </div>
-            <Button id="logout" variant="danger" size="full">
+            <Button
+              id="logout"
+              variant="danger"
+              size="full"
+              onClick={() => logout(router)}
+            >
               Log out
             </Button>
           </div>

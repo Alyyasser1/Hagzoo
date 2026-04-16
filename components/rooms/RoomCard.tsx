@@ -9,6 +9,13 @@ interface RoomCardProps {
   onClick: (room: RoomWithOwner) => void;
 }
 const RoomCard = ({ room, onClick }: RoomCardProps) => {
+  const ownerName = room.users?.username ?? "Unknown user";
+  const ownerAvatarUrl =
+    typeof room.users?.avatar_url === "string" &&
+    room.users?.avatar_url.trim() !== ""
+      ? room.users?.avatar_url
+      : null;
+
   return (
     <div className="room-card" onClick={() => onClick(room)}>
       <div className="room-card-top">
@@ -39,21 +46,21 @@ const RoomCard = ({ room, onClick }: RoomCardProps) => {
       <div className="room-footer">
         <div className="owner">
           <div className="owner-avatar">
-            {room.users.avatar_url ? (
+            {ownerAvatarUrl ? (
               <Image
-                src={room.users.avatar_url}
-                alt={room.users.username}
+                src={ownerAvatarUrl}
+                alt={ownerName}
                 width={24}
                 height={24}
                 className="avatar-img"
               ></Image>
             ) : (
               <div className="avatar-initials">
-                {getInitials(room.users.username)}
+                {getInitials(ownerName)}
               </div>
             )}
           </div>
-          <div className="owner-name">{room.users.username}</div>
+          <div className="owner-name">{ownerName}</div>
         </div>
         <div className="room-right">
           <div className="players-count">

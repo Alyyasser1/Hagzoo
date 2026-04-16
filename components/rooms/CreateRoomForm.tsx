@@ -78,7 +78,7 @@ const CreateRoomForm = ({ onSuccess }: CreateRoomFormProps) => {
       </div>
       <div className="form-grid">
         <div className="select-group">
-          <label className="input-label">Sport</label>
+          <label className="form-label">Sport</label>
           <select {...register("sport")} className="custom-select">
             <option value="football">Football</option>
             <option value="padel">Padel</option>
@@ -87,7 +87,7 @@ const CreateRoomForm = ({ onSuccess }: CreateRoomFormProps) => {
           </select>
         </div>
         <div className="select-group">
-          <label className="input-label">Level</label>
+          <label className="form-label">Level</label>
           <select {...register("level")} className="custom-select">
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
@@ -114,7 +114,7 @@ const CreateRoomForm = ({ onSuccess }: CreateRoomFormProps) => {
 
       <Input
         id="max_players"
-        label="Players number"
+        label="Room Players"
         type="number"
         {...register("max_players", { valueAsNumber: true })}
         error={errors.max_players?.message}

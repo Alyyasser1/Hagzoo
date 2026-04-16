@@ -1,6 +1,7 @@
 "use client";
 import { RoomWithOwner } from "@/types/data";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import "../ui/Button.css";
@@ -15,12 +16,19 @@ interface RoomGridProps {
   initialHasMore: boolean;
   currentUserId: string;
 }
-const sportsList = ["All", "Football", "Padel", "Tennis", "Padbol"];
+const sportsList = [
+  { label: "All", value: "All" },
+  { label: "Football", value: "football" },
+  { label: "Padel", value: "padel" },
+  { label: "Tennis", value: "tennis" },
+  { label: "Padbol", value: "padbol" },
+];
 const RoomsGrid = ({
   initialRooms,
   initialHasMore,
   currentUserId,
 }: RoomGridProps) => {
+  const router = useRouter();
   // States nedded
   const [rooms, setRooms] = useState<RoomWithOwner[]>(initialRooms);
   const [hasMore, setHasMore] = useState(initialHasMore);
@@ -90,18 +98,28 @@ const RoomsGrid = ({
       return next.length === 0 ? ["All"] : next;
     });
   };
+
+  const handleRoomDeleted = useCallback(
+    (deletedRoomId: string) => {
+      setRooms((prev) => prev.filter((room) => room.id !== deletedRoomId));
+      setSelectedRoom(null);
+      router.refresh();
+    },
+    [router],
+  );
+
   return (
     <div className="grid-page">
       <div className="filter-section">
         <div className="sport-filter">
           {sportsList.map((sport) => (
             <Button
-              key={sport}
-              variant={selectedSports.includes(sport) ? "primary" : "outline"}
+              key={sport.value}
+              variant={selectedSports.includes(sport.value) ? "primary" : "outline"}
               size="md"
-              onClick={() => toggleSport(sport)}
+              onClick={() => toggleSport(sport.value)}
             >
-              {sport}
+              {sport.label}
             </Button>
           ))}
         </div>
@@ -162,6 +180,7 @@ const RoomsGrid = ({
           room={selectedRoom}
           isOpen={!!selectedRoom}
           onClose={() => setSelectedRoom(null)}
+          onDeleteSuccess={handleRoomDeleted}
         />
       )}
     </div>

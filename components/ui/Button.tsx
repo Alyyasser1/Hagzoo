@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes, forwardRef } from "react";
 import "./Button.css";
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary" | "danger" | "outline" | "ghost";
+  variant: "primary" | "secondary" | "danger" | "outline" | "ghost" | "accept";
   size: "sm" | "md" | "lg" | "full";
   isLoading?: boolean;
   icon?: React.ReactNode;
@@ -12,6 +12,7 @@ const variantMap = {
   outline: "btn btn-outline",
   danger: "btn btn-danger",
   ghost: "btn btn-ghost",
+  accept: "btn btn-accept",
 };
 
 const sizeMap = {

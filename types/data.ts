@@ -36,19 +36,22 @@ export type RoomPlayer = {
   joined_at: string;
   coins_earned: number;
 };
+export type RoomUserPreview = Pick<
+  User,
+  "id" | "username" | "email" | "phone" | "avatar_url" | "level"
+>;
+export type RoomPlayerPreview = Pick<RoomPlayer, "status" | "user_id" | "id">;
+export type RoomOwnerPreview = Pick<
+  User,
+  "id" | "username" | "email" | "phone" | "avatar_url" | "level"
+>;
 export type RoomsWithPlayers = Room & {
-  users: Pick<
-    User,
-    "id" | "username" | "phone" | "birth_date" | "avatar_url" | "level"
-  >[];
-}& {
-  roomPlayer:Pick<
-    RoomPlayer,
-    "status"|"user_id"
-  >[];
-}
+  users: RoomUserPreview[];
+  roomPlayer: RoomPlayerPreview[];
+  owner: RoomOwnerPreview;
+};
 export type RoomWithOwner = Room & {
-  users: Pick<User, "username" | "avatar_url">;
+  users: Pick<User, "username" | "avatar_url"> | null;
 };
 export type CreateRoomInput = Pick<
   Room,

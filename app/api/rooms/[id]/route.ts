@@ -18,18 +18,35 @@ export async function GET(
   return Response.json({ data }, { status: 200 });
 }
 // Calls deletRoom
-export async function DELETE(request: Request) {
-    const supabase = await createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
-      const body =await request.json()
-      const {room_id}= body
-      if(!room_id) return Response.json({error:"room_id is required"},{status:400})
-      const {data,error} = await deleteRoom(room_id)
-            if(error) return  Response.json({ error }, { status: 500 });
-      return Response.json({ data }, { status: 200 });
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const supabase = await createClient();
+  const { id } = await params;  // ✅ Get ID from URL path params
+  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+  if (!id) {
+    return Response.json({ error: "room_id is required" }, { status: 400 });
+  }
+
+const {data: deleteResult, error } = await deleteRoom(id);
+if (error) {
+  console.error("Delete room RPC error:", error);
+  return Response.json({ error: error.message || "Failed to delete room" }, { status: 500 });
+}
+
+if (deleteResult !== "success") {
+  console.error("Delete failed with message:", deleteResult);
+  return Response.json({ message: deleteResult }, { status: 400 });
+}
+
+return Response.json({ message: deleteResult }, { status: 200 });
 }
 // Calls completeRoom
 export async function PATCH(request: NextRequest,{ params }: { params: Promise<{id: string }> },) {

@@ -1,0 +1,120 @@
+.profile-hero {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.profile-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.bio-display-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Helps buttons wrap on mobile */
+  gap: 12px;
+}
+
+.profile-bio-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.bio-edit-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px;
+  display: flex;
+  transition: color 0.2s;
+}
+
+.bio-edit-icon:hover {
+  color: var(--accent);
+}
+
+.bio-edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 450px;
+}
+
+.profile-bio-input {
+  width: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+}
+
+.bio-inline-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  border-top: 1px solid var(--border-default);
+  padding-top: 20px;
+}
+
+.profile-stat {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  text-align: center;
+}
+
+.avatar-upload-error {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.bio-inline-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0; 
+}
+
+.bio-inline-actions button {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bio-display-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap; 
+  gap: 12px;
+  min-height: 32px; 
+}
+
+.profile-bio-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}

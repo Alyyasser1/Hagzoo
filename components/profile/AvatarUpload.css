@@ -1,0 +1,113 @@
+.avatar-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar-upload-trigger {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar-upload-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-upload-initials {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--bg-subtle);
+  border: 0.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  user-select: none;
+}
+
+/* Overlay shown on hover */
+.avatar-upload-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.avatar-upload-trigger:hover .avatar-upload-overlay {
+  opacity: 1;
+}
+
+.avatar-upload-icon {
+  width: 26px;
+  height: 26px;
+  color: #fff;
+}
+
+/* Spinner for upload in progress */
+.avatar-upload-spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: avatar-spin 0.7s linear infinite;
+}
+
+@keyframes avatar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hidden file input */
+.avatar-upload-input {
+  display: none;
+}
+
+/* Save button */
+.avatar-save-btn {
+  background-color: var(--accent, #e8651a);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.avatar-save-btn:hover {
+  opacity: 0.85;
+}
+
+.avatar-upload-error {
+  font-size: 12px;
+  color: #e53e3e;
+  margin: 0;
+  text-align: center;
+}
+
+.avatar-upload-success {
+  font-size: 12px;
+  color: #38a169;
+  margin: 0;
+  text-align: center;
+}

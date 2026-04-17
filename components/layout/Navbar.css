@@ -59,6 +59,12 @@
   font-weight: 500;
   color: var(--text-primary);
   letter-spacing: 0.5px;
+  transition: color 0.15s;
+}
+
+.logo-text:hover {
+  color: var(--accent-hover);
+  cursor: pointer;
 }
 
 .nav-right {

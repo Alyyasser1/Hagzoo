@@ -19,6 +19,10 @@ const Navbar = ({ user }: NavbarProps) => {
     e.stopPropagation();
     router.push("/profile");
   };
+  const goToHome = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push("/home");
+  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -38,7 +42,9 @@ const Navbar = ({ user }: NavbarProps) => {
           <div className="logo-dot1"></div>
           <div className="logo-dot2"></div>
         </div>
-        <div className="logo-text">Hagzoo</div>
+        <div className="logo-text" onClick={goToHome}>
+          Hagzoo
+        </div>
       </div>
 
       <div className="nav-right">

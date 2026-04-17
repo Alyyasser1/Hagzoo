@@ -55,9 +55,7 @@ const RoomCard = ({ room, onClick }: RoomCardProps) => {
                 className="avatar-img"
               ></Image>
             ) : (
-              <div className="avatar-initials">
-                {getInitials(ownerName)}
-              </div>
+              <div className="avatar-initials">{getInitials(ownerName)}</div>
             )}
           </div>
           <div className="owner-name">{ownerName}</div>

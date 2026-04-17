@@ -12,6 +12,9 @@ export type User = {
   total_games_played: number;
   total_coins_earned: number;
 };
+export interface UserWithRooms extends User {
+  rooms: RoomWithOwner[];
+}
 export type Room = {
   id: string;
   name: string;

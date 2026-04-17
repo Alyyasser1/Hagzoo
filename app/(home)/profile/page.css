@@ -1,0 +1,155 @@
+.profile-page {
+    padding: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.error {
+    text-align: center;
+    color: var(--status-full);
+    font-size: 25px;
+}
+
+.profile-hero {
+    background: var(--bg-surface);
+    border: 0.5px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    margin-bottom: 16px;
+    padding: 24px;
+}
+
+.profile-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.player-avatar-main {
+    width: 68px;
+    height: 68px;
+    border-radius: var(--radius-full);
+    background: var(--bg-subtle);
+    border: 0.5px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar-img-main {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+}
+
+.profile-name-level {
+    display: flex;
+    gap: 10px;
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.level-badge {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: var(--radius-full);
+    text-transform: capitalize;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.level-badge.Beginner {
+    background: var(--level-beginner-bg);
+    color: var(--level-beginner-text);
+    border: 0.5px solid var(--level-beginner-border);
+}
+
+.level-badge.Intermediate {
+    background: var(--level-intermediate-bg);
+    color: var(--level-intermediate-text);
+    border: 0.5px solid var(--level-intermediate-border);
+}
+
+.level-badge.Advanced {
+    background: var(--level-advanced-bg);
+    color: var(--level-advanced-text);
+    border: 0.5px solid var(--level-advanced-border);
+}
+
+.level-badge.Pro {
+    background: var(--level-pro-bg);
+    color: var(--level-pro-text);
+    border: 0.5px solid var(--level-pro-border);
+}
+
+.profile-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.profile-stat {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-default);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+}
+
+.profile-stat-value {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.profile-stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+.room-divider {
+    border: none;
+    border-top: 0.5px solid var(--border-default);
+}
+
+.rooms {
+    margin-top: 20px;
+}
+
+.rooms-section-title {
+    margin-bottom: 14px;
+    color: var(--accent);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+.profile-bio-input {
+  width: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  resize: none;
+  margin-top: 4px;
+}
+
+.profile-bio-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}

@@ -3,12 +3,15 @@ import "./RoomCard.css";
 import Image from "next/image";
 import { getInitials } from "@/utils/userUtils";
 import { formatTime } from "@/utils/roomUtils";
+import Button from "../ui/Button";
 
 interface RoomCardProps {
   room: RoomWithOwner;
   onClick: (room: RoomWithOwner) => void;
+  isOwner?: boolean;
+  onComplete?: (roomId: string) => void;
 }
-const RoomCard = ({ room, onClick }: RoomCardProps) => {
+const RoomCard = ({ room, onClick, isOwner, onComplete }: RoomCardProps) => {
   const ownerName = room.users?.username ?? "Unknown user";
   const ownerAvatarUrl =
     typeof room.users?.avatar_url === "string" &&
@@ -31,9 +34,24 @@ const RoomCard = ({ room, onClick }: RoomCardProps) => {
           </div>
           <div className="sport-name">{room.sport}</div>
         </div>
-        <div
-          className={`status-dot ${room.status === "open" ? "green" : "red"}`}
-        ></div>
+        <div className="room-dot-complete">
+          {isOwner && room.status === "open" && !room.completed && (
+            <Button
+              variant="accept"
+              size="sm"
+              className="room-complete-btn"
+              onClick={(e) => {
+                e.stopPropagation(); // prevent opening the modal
+                onComplete?.(room.id);
+              }}
+            >
+              Complete
+            </Button>
+          )}
+          <div
+            className={`status-dot ${room.status === "open" ? "green" : "red"}`}
+          ></div>
+        </div>
       </div>
       <div className="room-name">{room.name}</div>
       <div className="room-meta">

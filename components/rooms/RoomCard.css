@@ -44,6 +44,13 @@
   text-transform: capitalize;
 }
 
+.room-dot-complete {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
 .status-dot {
   width: 8px;
   height: 8px;

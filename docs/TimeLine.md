@@ -87,12 +87,22 @@
   - RoomsGrid: subscribes to rooms table UPDATE and DELETE, patches local state in place without refetching — UPDATE spreads payload.new over existing room preserving the users join, DELETE filters out by id
 - Mobile responsive polish: sport filter buttons resized to fit single line on small screens, all layouts verified at 375px and 390px breakpoints
 
-## Phase 8: In Progress 🔄
+## Phase 8: Error Boundaries & Loading States ✅
 
-- Error boundaries
-- Loading skeleton states
+- error.tsx for home and profile routes — catches runtime errors, shows retry UI
+- not-found.tsx for home route — catches notFound() calls
+- loading.tsx for home and profile routes — shows shimmer skeleton while server components fetch data
+- Skeleton variants: card, button, input, avatar, stat, text sizes
+- Shimmer animation using CSS variables to match dark theme automatically
+- Error boundary and skeleton styles added to globals.css
 
-## Phase 9: Future Versions 🗓️
+## Hagzoo v1 — Complete ✅
 
+All planned features for the initial version are shipped.
+
+## Future Versions 🗓️
+
+- React Native mobile app using the same REST API
+- Live chat For rooms
+- Push notifications for join requests and room updates
 - Rewards and redemptions system
-- Live chat for Rooms

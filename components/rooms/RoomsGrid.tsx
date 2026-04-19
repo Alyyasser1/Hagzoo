@@ -155,6 +155,7 @@ const RoomsGrid = ({
               variant={
                 selectedSports.includes(sport.value) ? "primary" : "outline"
               }
+              className="filter-btn"
               size="md"
               onClick={() => toggleSport(sport.value)}
             >

@@ -54,8 +54,7 @@ export default function AvatarUpload({
         .from("avatars")
         .getPublicUrl(path);
 
-      const publicUrl = `${urlData.publicUrl}?t=${Date.now()}`;
-      onUploadSuccess(publicUrl);
+      onUploadSuccess(urlData.publicUrl);
     } catch (err: unknown) {
       // Change any to unknown
       const message = err instanceof Error ? err.message : "Upload failed.";

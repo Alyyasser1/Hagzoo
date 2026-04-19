@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getInitials } from "@/utils/userUtils";
 import Button from "../ui/Button";
 import { formatTime } from "@/utils/roomUtils";
+import { createClient } from "@/lib/supabase/client";
 
 interface RoomModalProps {
   room: RoomWithOwner;
@@ -132,8 +133,8 @@ const RoomModal = ({
     const result = await res.json();
     setDetailedRoom(result.data);
   }, [room.id]);
-
   useEffect(() => {
+    const supabase = createClient();
     if (!isOpen) return;
     const fetchDetails = async () => {
       setIsLoading(true);
@@ -146,7 +147,25 @@ const RoomModal = ({
       }
     };
     fetchDetails();
-  }, [isOpen, refetchRoom]);
+    const channel = supabase
+      .channel(`room-players-${room.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "room_players",
+          filter: `room_id=eq.${room.id}`,
+        },
+        () => {
+          refetchRoom();
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [isOpen, refetchRoom, room.id]);
 
   useEffect(() => {
     if (!actionMessage) return;

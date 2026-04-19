@@ -105,4 +105,5 @@ All planned features for the initial version are shipped.
 - React Native mobile app using the same REST API
 - Live chat For rooms
 - Push notifications for join requests and room updates
+- Close and Open room option for room owner
 - Rewards and redemptions system

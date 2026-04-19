@@ -78,16 +78,21 @@
 - ProfileRoomsGrid client component showing all rooms the user is part of
 - Complete room feature: owner can mark a full room as completed
 - Coins distributed to all accepted players via complete_room SQL function
-- Error and success message display with 2s auto-dismiss
+- Error and success message display with 1.5s auto-dismiss
 
-## Phase 7: In Progress 🔄
+## Phase 7: Realtime & Polish ✅
 
 - Realtime subscriptions for live updates
-- Mobile responsive polish
+  - RoomModal: subscribes to room_players changes filtered by room_id, refetches on any INSERT/UPDATE/DELETE so all clients viewing a room stay in sync
+  - RoomsGrid: subscribes to rooms table UPDATE and DELETE, patches local state in place without refetching — UPDATE spreads payload.new over existing room preserving the users join, DELETE filters out by id
+- Mobile responsive polish: sport filter buttons resized to fit single line on small screens, all layouts verified at 375px and 390px breakpoints
+
+## Phase 8: In Progress 🔄
+
 - Error boundaries
 - Loading skeleton states
 
-## Phase 8: Future Versions 🗓️
+## Phase 9: Future Versions 🗓️
 
 - Rewards and redemptions system
 - Live chat for Rooms

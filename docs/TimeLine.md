@@ -68,12 +68,26 @@
 - CreateRoomForm with Zod validation
 - Utility functions: getInitials, formatTime, logout
 
-## Phase 6: In Progress 🔄
+## Phase 6: Profile Page ✅
 
-- Profile page
-- Rewards and redemptions Modal
-- Complete room feature
+- Profile page server component with auth guard
+- ProfileCard client component with avatar and bio editing
+- AvatarUpload with Supabase Storage integration (avatars bucket + RLS policies)
+- Bio inline editing with save/cancel pattern
+- Unified save handler for avatar + bio changes via PATCH /api/user
+- ProfileRoomsGrid client component showing all rooms the user is part of
+- Complete room feature: owner can mark a full room as completed
+- Coins distributed to all accepted players via complete_room SQL function
+- Error and success message display with 2s auto-dismiss
+
+## Phase 7: In Progress 🔄
+
 - Realtime subscriptions for live updates
 - Mobile responsive polish
 - Error boundaries
 - Loading skeleton states
+
+## Phase 8: Future Versions 🗓️
+
+- Rewards and redemptions system
+- Live chat for Rooms

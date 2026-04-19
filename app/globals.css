@@ -57,3 +57,121 @@ html, body {
   color: var(--text-secondary);
   font-family: var(--font-main);
 }
+/* ── Error Boundary ── */
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  gap: 12px;
+}
+
+.error-boundary-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.error-boundary-message {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.error-boundary-btn {
+  margin-top: 8px;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.error-boundary-btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Skeleton Base ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-subtle) 25%,
+    var(--bg-surface) 50%,
+    var(--bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Skeleton Variants ── */
+.skeleton-card {
+  height: 160px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  margin-bottom: 30px;
+}
+
+.skeleton-btn {
+  height: 34px;
+  width: 72px;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-input {
+  height: 36px;
+  width: 180px;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.skeleton-stat {
+  height: 70px;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-text-lg {
+  height: 20px;
+  width: 140px;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-text-md {
+  height: 16px;
+  width: 100px;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-text-sm {
+  height: 13px;
+  width: 180px;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-surface {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+}

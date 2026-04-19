@@ -11,6 +11,7 @@ import RoomCard from "./RoomCard";
 import CreateRoomForm from "./CreateRoomForm";
 import Modal from "./Modal";
 import RoomModal from "./RoomModal";
+import { createClient } from "@/lib/supabase/client";
 interface RoomGridProps {
   initialRooms: RoomWithOwner[];
   initialHasMore: boolean;
@@ -67,7 +68,43 @@ const RoomsGrid = ({
     },
     [selectedSports, search],
   );
+  // reacts to DB changes, patches local state directly
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase
+      .channel("room-updates")
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "rooms",
+        },
+        (payload) => {
+          const updated = payload.new as Partial<RoomWithOwner>;
+          setRooms((prev) =>
+            prev.map((r) => (r.id === updated.id ? { ...r, ...updated } : r)),
+          );
+        },
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
+          schema: "public",
+          table: "rooms",
+        },
+        (payload) => {
+          setRooms((prev) => prev.filter((r) => r.id !== payload.old.id));
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
+  // reacts to user input changes, fires fetch calls
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -115,7 +152,9 @@ const RoomsGrid = ({
           {sportsList.map((sport) => (
             <Button
               key={sport.value}
-              variant={selectedSports.includes(sport.value) ? "primary" : "outline"}
+              variant={
+                selectedSports.includes(sport.value) ? "primary" : "outline"
+              }
               size="md"
               onClick={() => toggleSport(sport.value)}
             >

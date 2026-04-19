@@ -57,7 +57,22 @@ export async function PATCH(request: NextRequest,{ params }: { params: Promise<{
       } = await supabase.auth.getUser();
       if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
       if(!id) return Response.json({error:"room_id is required"},{status:400})
-      const {data,error} = await completeRoom(id)
-            if(error) return  Response.json({ error }, { status: 500 });
-      return Response.json({ data }, { status: 200 });
+      const { data, error } = await completeRoom(id);
+if (error) return Response.json({ error: error.message }, { status: 500 });
+if(!data) return Response.json({ error: "No response from server." }, { status: 500 })
+if (data !== "success") {
+  const messages: Record<string, string> = {
+    room_not_found: "Room not found.",
+    not_owner: "You are not the owner of this room.",
+    already_completed: "Room is already completed.",
+    game_not_started: "The game hasn't started yet.",
+    not_enough_players: "Not enough accepted players to complete the room.",
+  };
+  return Response.json(
+    { error: messages[data] ?? data },
+    { status: 400 }
+  );
+}
+
+return Response.json({ data }, { status: 200 });
 }

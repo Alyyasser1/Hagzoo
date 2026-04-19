@@ -24,7 +24,7 @@ export default function ProfileRoomsGrid({
   } | null>(null);
   useEffect(() => {
     if (!actionMessage) return;
-    const timeout = setTimeout(() => setActionMessage(null), 1500);
+    const timeout = setTimeout(() => setActionMessage(null), 2000);
     return () => clearTimeout(timeout);
   }, [actionMessage]);
   const handleCompleteRoom = async (roomId: string) => {

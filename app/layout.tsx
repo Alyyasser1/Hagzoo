@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Space_Grotesk, DM_Sans } from "next/font/google";
 export const metadata: Metadata = {
   title: "Hagzoo",
   description: "Find players. Join games. Earn rewards.",
 };
 
-const playfair = Playfair_Display({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-heading",
 });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${playfair.variable} ${inter.variable} font-sans`}>
+      <body className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans`}>
         {children}
       </body>
     </html>

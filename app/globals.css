@@ -1,4 +1,7 @@
 :root {
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+
   --bg-primary: #0a0a0a;
   --bg-surface: #111111;
   --bg-elevated: #151515;
@@ -56,6 +59,14 @@ html, body {
   background: var(--bg-primary);
   color: var(--text-secondary);
   font-family: var(--font-main);
+}
+
+body {
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, .logo, .landing-name, .landing-H {
+  font-family: var(--font-heading);
 }
 /* ── Error Boundary ── */
 .error-boundary {

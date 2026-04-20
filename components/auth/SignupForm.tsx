@@ -5,8 +5,8 @@ import "../ui/Input.css";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import z from "zod";
+import "./SignupForm.css";
 const signupSchema = z
   .object({
     username: z.string().min(3, "Username must be at least 3 characters"),
@@ -19,13 +19,14 @@ const signupSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"], // This tells Zod to put the error on the confirmPassword field
+    path: ["confirmPassword"],
   });
 
 type SignupFormValues = z.infer<typeof signupSchema>;
+
 const SignupForm = () => {
-  const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -33,11 +34,13 @@ const SignupForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
-    defaultValues: { level: "Beginner" }, // Match your UI's default
+    defaultValues: { level: "Beginner" },
   });
 
   const onSubmit = async (values: SignupFormValues) => {
     setServerError(null);
+    setSuccessMessage(null);
+
     try {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
@@ -49,9 +52,9 @@ const SignupForm = () => {
 
       if (!response.ok) throw new Error(result.error || "Signup failed");
 
-      // Success! Move to home or show a 'Check your email' message
-      router.push("/home");
-      router.refresh();
+      setSuccessMessage(
+        "Account created! Please check your email to confirm your account.",
+      );
     } catch (err: unknown) {
       if (err instanceof Error) setServerError(err.message);
     }
@@ -59,7 +62,15 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      {serverError && <div className="input-error">{serverError}</div>}
+      {serverError && (
+        <div className="form-message form-message-error">{serverError}</div>
+      )}
+
+      {successMessage && (
+        <div className="form-message form-message-success">
+          {successMessage}
+        </div>
+      )}
 
       <Input
         label="Username"
@@ -87,7 +98,6 @@ const SignupForm = () => {
         error={errors.tel?.message}
       />
 
-      {/* Grid for Birth date and Level */}
       <div className="form-grid">
         <Input
           id="birthDate"
@@ -99,7 +109,7 @@ const SignupForm = () => {
 
         <div className="form-field">
           <label className="form-label">Level</label>
-          <select {...register("level")} className="form-input ">
+          <select {...register("level")} className="form-input">
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
@@ -133,6 +143,7 @@ const SignupForm = () => {
         variant="primary"
         size="full"
         isLoading={isSubmitting}
+        disabled={!!successMessage}
       >
         Create account
       </Button>

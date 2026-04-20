@@ -31,7 +31,9 @@ const LoginForm = () => {
       if (!response.ok) {
         throw new Error(result.error || "Login failed");
       }
-      window.location.href = "/home"; // full reload instead of client-side push
+      setTimeout(() => {
+        window.location.href = "/home"; // full reload instead of client-side push
+      }, 100);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setServerError(err.message);

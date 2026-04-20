@@ -33,8 +33,7 @@ const LoginForm = () => {
       if (!response.ok) {
         throw new Error(result.error || "Login failed");
       }
-      router.push("/home");
-      router.refresh();
+      window.location.href = "/home"; // full reload instead of client-side push
     } catch (err: unknown) {
       if (err instanceof Error) {
         setServerError(err.message);

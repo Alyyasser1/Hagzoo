@@ -1,14 +1,10 @@
 "use client";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Button from "../ui/Button";
-
 const AuthContainer = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const currentView =
-    searchParams.get("auth") === "signup" ? "signup" : "login";
+  const [currentView, setCurrentView] = useState<"login" | "signup">("login");
 
   return (
     <div>
@@ -16,7 +12,7 @@ const AuthContainer = () => {
         <Button
           variant="ghost"
           size="lg"
-          onClick={() => router.push("?auth=login")}
+          onClick={() => setCurrentView("login")}
           className={`${currentView === "login" ? "active" : ""}`}
         >
           Login
@@ -24,7 +20,7 @@ const AuthContainer = () => {
         <Button
           variant="ghost"
           size="lg"
-          onClick={() => router.push("?auth=signup")}
+          onClick={() => setCurrentView("login")}
           className={`${currentView === "signup" ? "active" : ""}`}
         >
           Sign up

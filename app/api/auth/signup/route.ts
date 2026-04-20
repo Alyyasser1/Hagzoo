@@ -6,8 +6,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { username,email,tel,birthDate,level, password } = body;
     const { data,error } = await supabase.auth.signUp({email,password,options:{
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/home`,
         data:{
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/home`,
             username,
             phone:tel,
             birth_date:birthDate,

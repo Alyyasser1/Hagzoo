@@ -4,7 +4,6 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import z from "zod";
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -12,7 +11,6 @@ const loginSchema = z.object({
 });
 type LoginFormValues = z.infer<typeof loginSchema>;
 const LoginForm = () => {
-  const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const {
     register,

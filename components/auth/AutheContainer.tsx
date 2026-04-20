@@ -20,7 +20,7 @@ const AuthContainer = () => {
         <Button
           variant="ghost"
           size="lg"
-          onClick={() => setCurrentView("login")}
+          onClick={() => setCurrentView("signup")}
           className={`${currentView === "signup" ? "active" : ""}`}
         >
           Sign up

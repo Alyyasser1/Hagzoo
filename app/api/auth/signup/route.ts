@@ -5,6 +5,19 @@ export async function POST(request: Request) {
     const supabase = await createClient();
     const body = await request.json();
     const { username,email,tel,birthDate,level, password } = body;
+    // check if username exsist
+    const { data: existingUser } = await supabase
+  .from("users")
+  .select("id")
+  .eq("username", username)
+  .single();
+
+    if (existingUser) {
+      return NextResponse.json(
+      { error: "Username already exists. Try a different one." },
+      { status: 400 }
+    );
+}
     const { data,error } = await supabase.auth.signUp({email,password,options:{
       emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/home`,
         data:{

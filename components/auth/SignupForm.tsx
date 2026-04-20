@@ -53,7 +53,7 @@ const SignupForm = () => {
       if (!response.ok) throw new Error(result.error || "Signup failed");
 
       setSuccessMessage(
-        "Account created! Please check your email to confirm your account.",
+        "Account created! Please check your email to verify your account.",
       );
     } catch (err: unknown) {
       if (err instanceof Error) setServerError(err.message);

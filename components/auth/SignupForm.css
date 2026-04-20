@@ -5,6 +5,7 @@
   font-size: 13px;
   line-height: 1.5;
   animation: form-message-in 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .form-message-error {
@@ -14,9 +15,9 @@
 }
 
 .form-message-success {
-  background-color: rgba(232, 101, 26, 0.1);
-  border: 1px solid rgba(232, 101, 26, 0.3);
-  color: var(--accent);
+  background-color: var(--level-beginner-bg);
+  border: 1px solid var(--level-beginner-border);
+  color: var(--level-beginner-text);
 }
 
 @keyframes form-message-in {

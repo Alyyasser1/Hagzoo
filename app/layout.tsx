@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Space_Grotesk, DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 export const metadata: Metadata = {
   title: "Hagzoo",
   description: "Find players. Join games. Earn rewards.",
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
